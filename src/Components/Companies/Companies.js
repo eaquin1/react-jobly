@@ -1,29 +1,42 @@
-import React, {useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import JoblyApi from "../../Helpers/JoblyApi";
-import CompanyCard from "../Cards/CompanyCard"
+import CompanyCard from "../Cards/CompanyCard";
+import Search from "../Search/Search";
+import { Link } from "react-router-dom";
+
 function Companies() {
-const [companies, setCompanies] = useState();
+    const [companies, setCompanies] = useState([]);
 
-useEffect(() => {
-    async function getCompanies() {
+    useEffect(() => {
+        async function getCompanies() {
+            let c = await JoblyApi.getCompanies();
+            setCompanies(c);
+        }
+        getCompanies();
+    }, []);
 
-     let c = await JoblyApi.getCompanies();
-     setCompanies(c);
+    async function handleSearch(search) {
+        let searchResults = await JoblyApi.getCompanies(search);
+        setCompanies(searchResults);
     }
-    getCompanies()
-}, [])
 
-if (!companies) {
-    return <div>Loading...</div>
-}
-    return (
+    if (!companies) {
+        return <div>Loading...</div>;
+    } 
+
+    return companies.length === 0 ? (
         <div>
-        <h1>Companies</h1>
-        {companies.map((company) => (
-            <CompanyCard item={company} />
-        ))}
-    </div>
-    )
+            Company not found. Please return back to 
+             <Link to="/companies" onClick={() => handleSearch()}> Companies</Link>
+        </div>
+    ) : (
+        <div>
+            <Search endpoint="companies" searchFor={handleSearch} />
+            {companies.map((company) => (
+                <CompanyCard item={company} key={company.handle}/>
+            ))}
+        </div>
+    );
 }
 
-export default Companies
+export default Companies;

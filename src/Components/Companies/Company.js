@@ -11,8 +11,9 @@ function Company() {
     useEffect(() => {
         async function getJobs() {
             let company = await JoblyApi.getCompany(handle);
-
+            
             setCompany(company);
+            console.log(company)
         }
         getJobs();
     }, [handle]);
@@ -26,7 +27,7 @@ function Company() {
             <h1>{company.name}</h1>
             <p>{company.description}</p>
             {company.jobs.map((job) => (
-                <JobCard item={job} />
+                <JobCard item={job} key={job.id}/>
             ))}
         </div>
     );

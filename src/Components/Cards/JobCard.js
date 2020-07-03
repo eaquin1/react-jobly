@@ -6,10 +6,13 @@ import {
     CardTitle,
     CardSubtitle,
     Button,
+    Container
 } from "reactstrap";
+import "./Cards.scss"
 
 function JobCard({ item }) {
     return (
+        <Container className="Card-container">
         <Card>
             <CardBody>
                 <CardTitle className="font-weight-bold">{item.title}</CardTitle>
@@ -18,6 +21,7 @@ function JobCard({ item }) {
                 <Button>Apply</Button>
             </CardBody>
         </Card>
+        </Container>
     );
 }
 
