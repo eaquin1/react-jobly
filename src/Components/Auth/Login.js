@@ -10,11 +10,11 @@ function Login() {
     const [activeView, setActiveView] = useState("login") 
 
     function setLoginView() {
-        setActiveView("login")
+        setActiveView("login")    
     }
 
-    function setSignUpView() {
-        setActiveView("signup")
+    function setRegisterView() {
+        setActiveView("register")
     }
 
     const handleChange = e => {
@@ -25,20 +25,79 @@ function Login() {
         }))
     }
 
-    async function loginFunc(data) {
-         await JoblyApi.login(data)
-    }
 
     async function handleLogin(evt) {
         evt.preventDefault()
-     
-        await loginFunc(loginFormData)
+        let data;
+        let endpoint;
+
+        if (activeView === "register"){
+            //unrequired fields can be undefined
+            data = {
+                username: loginFormData.username,
+                password: loginFormData.password,
+                first_name: loginFormData.first_name || undefined,
+                last_name: loginFormData.last_name || undefined,
+                email: loginFormData.email || undefined
+            }
+            endpoint = "register"
+        } else {
+            data = {
+            username: loginFormData.username,
+            password: loginFormData.password
+        }
+        endpoint = "login"
+    }
+
+    try {
+        console.log(endpoint, data)
+        await JoblyApi[endpoint](data)
+    } catch (errors) {
+        return setLoginFormData(l => ({...l, errors}))
+    }
+
         setLoginFormData(INITIAL_STATE_LOGIN)
        history.push("/jobs")
        
     }
 
+    const registerFields = (
+        <div>
+            <FormGroup>
+            <Label for="first_name">First Name</Label>
+            <Input 
+            type="text"
+            name="first_name"
+            placeholder="First Name"
+            value={loginFormData.first_name}
+            onChange={handleChange}/>
+            </FormGroup>
+            <FormGroup>
+            <Label for="last_name">Last Name</Label>
+            <Input 
+            type="text"
+            name="last_name"
+            placeholder="Last Name"
+            value={loginFormData.last_name}
+            onChange={handleChange}/>
+            </FormGroup>
+            <FormGroup>
+            <Label for="email">Email</Label>
+            <Input 
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={loginFormData.email}
+            onChange={handleChange}/>
+            </FormGroup>
+          
+        </div>
+    )
+
     return (
+        <div>
+        <Button className={`$activeView === "login" ? "active" : ""`} onClick={setLoginView}>Login</Button>
+        <Button className={`$activeView === "register" ? "active" : ""`} onClick={setRegisterView}>Sign Up</Button>
        <Form onSubmit={handleLogin}>
            <FormGroup>
            <Label for="username">Username</Label>
@@ -58,59 +117,14 @@ function Login() {
             value={loginFormData.password}
             onChange={handleChange}/>
             </FormGroup>
-            <Button>Submit</Button>
+            
+       
+       {activeView === "register" ? registerFields : ""}
+       <Button>Submit</Button>
        </Form>
+       </div>
+
     )
-// : (
-//        <Form>
-//            <FormGroup>
-//            <Label for="username">Username</Label>
-//             <Input 
-//             type="text"
-//             name="username"
-//             placeholder="Username"
-//             value={loginFormData.username}
-//             onChange={handleChange}/>
-//             </FormGroup>
-//             <FormGroup>
-//            <Label for="username">Password</Label>
-//             <Input 
-//             type="password"
-//             name="password"
-//             placeholder="Password"
-//             value={loginFormData.password}
-//             onChange={handleChange}/>
-//             </FormGroup>
-//             <FormGroup>
-//             <Label for="first_name">First Name</Label>
-//             <Input 
-//             type="text"
-//             name="first_name"
-//             placeholder="First Name"
-//             value={loginFormData.first_name}
-//             onChange={handleChange}/>
-//             </FormGroup>
-//             <FormGroup>
-//             <Label for="last_name">Last Name</Label>
-//             <Input 
-//             type="text"
-//             name="last_name"
-//             placeholder="Last Name"
-//             value={loginFormData.last_name}
-//             onChange={handleChange}/>
-//             </FormGroup>
-//             <FormGroup>
-//             <Label for="email">Email</Label>
-//             <Input 
-//             type="email"
-//             name="email"
-//             placeholder="Email"
-//             value={loginFormData.email}
-//             onChange={handleChange}/>
-//             </FormGroup>
-          
-//        </Form>
-//     )
-    }
+}
 
 export default Login
