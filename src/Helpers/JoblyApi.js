@@ -1,10 +1,8 @@
-import axios from "axios"
+import axios from "axios";
 
 class JoblyApi {
     static async request(endpoint, paramsOrData = {}, verb = "get") {
-        paramsOrData._token = localStorage.getItem("token")
-        
-      
+        paramsOrData._token = localStorage.getItem("token");
 
         console.debug("API Call:", endpoint, paramsOrData, verb);
 
@@ -25,51 +23,51 @@ class JoblyApi {
 
     static async getCompany(handle) {
         let res = await this.request(`companies/${handle}`);
-        return res.company
+        return res.company;
     }
 
     static async getCompanies(search) {
-        let res = await this.request(`companies`, {search});
-        return res.companies
+        let res = await this.request(`companies`, { search });
+        return res.companies;
     }
 
-    static async getJob(id){
-        let res = await this.request(`jobs/${id}`)
-        return res.job
+    static async getJob(id) {
+        let res = await this.request(`jobs/${id}`);
+        return res.job;
     }
 
     static async getJobs(search) {
-        let res = await this.request(`jobs`, {search});
-        return res.jobs
+        let res = await this.request(`jobs`, { search });
+        return res.jobs;
     }
 
-    static async applyToJob(id){
-        let res = await this.request(`${id}/apply`, 'post')
-        return res.message
+    static async applyToJob(id) {
+        let res = await this.request(`${id}/apply`, "post");
+        return res.message;
     }
 
     static async login(data) {
-        let res = await this.request(`login`, data, 'post')
-        localStorage.setItem("token", res.token)
-        console.log(res.token)
-        return res.token
+        let res = await this.request(`login`, data, "post");
+        localStorage.setItem("token", res.token);
+        console.log(res.token);
+        return res.token;
     }
 
     static async register(data) {
-        let res = await this.request(`users`, data, 'post')
-        return res.token
+        let res = await this.request(`users`, data, "post");
+        localStorage.setItem("token", res.token);
+        console.log(res.token);
+        return res.token;
     }
-    static async getUser(username){
-        let res = await this.request(`users/${username}`)
-        return res.user
+    static async getUser(username) {
+        let res = await this.request(`users/${username}`);
+        return res.user;
     }
 
     static async updateUser(username, data) {
-        let res = await this.request(`users/${username}`, data, 'patch')
-        return res.user
+        let res = await this.request(`users/${username}`, data, "patch");
+        return res.user;
     }
-
-    
 }
 
-export default JoblyApi
+export default JoblyApi;

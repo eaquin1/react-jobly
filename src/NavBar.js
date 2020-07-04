@@ -1,38 +1,48 @@
-import React from "react"
+import React from "react";
 import "./NavBar.css";
-import { NavLink} from "react-router-dom"
+import { NavLink } from "react-router-dom";
 import { Navbar, Nav, NavItem } from "reactstrap";
 
 function NavBar() {
- return (
-     <div>
-         <Navbar expand="md">
-             <NavLink exact to="/" className="navbar-brand">
-                 Jobly
-             </NavLink>
-            <Nav className="ml-auto" navbar>
-                <NavItem>
-                    <NavLink to="/companies">Companies</NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink to="/jobs">Jobs</NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink to="/profile">Profile</NavLink>
-                </NavItem>
-               
-                <NavItem>
-                    <NavLink to="/logout">Logout</NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink to="/login">Login</NavLink>
-                </NavItem>
+    const currentUser = localStorage.getItem("token") != null;
 
-            </Nav>
-         </Navbar>
-     </div>
- )
+    const loggedIn = (
+        <>
+            <NavItem>
+                <NavLink to="/companies">Companies</NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink to="/jobs">Jobs</NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink to="/profile">Profile</NavLink>
+            </NavItem>
 
+            <NavItem>
+                <NavLink to="/">Logout</NavLink>
+            </NavItem>
+        </>
+    );
+
+    const loggedOut = (
+        <>
+            <NavItem>
+                <NavLink to="/login">Login</NavLink>
+            </NavItem>
+        </>
+    );
+    return (
+        <div>
+            <Navbar expand="md">
+                <NavLink exact to="/" className="navbar-brand">
+                    Jobly
+                </NavLink>
+                <Nav className="ml-auto" navbar>
+                    {currentUser ? loggedIn : loggedOut}
+                </Nav>
+            </Navbar>
+        </div>
+    );
 }
 
-export default NavBar
+export default NavBar;
