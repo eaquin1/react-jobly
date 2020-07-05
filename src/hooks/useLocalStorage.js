@@ -11,7 +11,7 @@ function useLocalStorage(key, firstValue=null) {
         } else {
             localStorage.setItem(key, item)
         }
-    }, [item, key])
+    }, [key, item])
 
     return [item, setItem]
 }

@@ -1,25 +1,35 @@
 import axios from "axios";
+import {TOKEN_STORAGE_ID} from "../App"
+const BASE_URL = process.env.BASE_URL || "http://localhost:3001";
 
 class JoblyApi {
-    static async request(endpoint, paramsOrData = {}, verb = "get") {
-        paramsOrData._token = localStorage.getItem("token");
+  static async request(endpoint, params = {}, verb = "get") {
 
-        console.debug("API Call:", endpoint, paramsOrData, verb);
+    let _token = localStorage.getItem(TOKEN_STORAGE_ID);
 
-        try {
-            return (
-                await axios({
-                    method: verb,
-                    url: `http://localhost:3001/${endpoint}`,
-                    [verb === "get" ? "params" : "data"]: paramsOrData,
-                })
-            ).data;
-        } catch (e) {
-            console.error("API error:", e.response);
-            let message = e.response.data.message;
-            throw Array.isArray(message) ? message : [message];
-        }
+    console.debug("API Call:", endpoint, params, verb);
+
+    let q;
+
+    if (verb === "get") {
+      q = axios.get(
+        `${BASE_URL}/${endpoint}`, { params: { _token, ...params } });
+    } else if (verb === "post") {
+      q = axios.post(
+        `${BASE_URL}/${endpoint}`, { _token, ...params });
+    } else if (verb === "patch") {
+      q = axios.patch(
+        `${BASE_URL}/${endpoint}`, { _token, ...params });
     }
+
+    try {
+      return (await q).data;
+    } catch (err) {
+      console.error("API Error:", err.response);
+      let message = err.response.data.message;
+      throw Array.isArray(message) ? message : [message];
+    }
+  }
 
     static async getCompany(handle) {
         let res = await this.request(`companies/${handle}`);
@@ -48,15 +58,13 @@ class JoblyApi {
 
     static async login(data) {
         let res = await this.request(`login`, data, "post");
-        localStorage.setItem("token", res.token);
-        console.log(res.token);
+     
         return res.token;
     }
 
     static async register(data) {
         let res = await this.request(`users`, data, "post");
-        localStorage.setItem("token", res.token);
-        console.log(res.token);
+     
         return res.token;
     }
     static async getUser(username) {

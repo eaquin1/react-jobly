@@ -6,6 +6,7 @@ import {
   } from 'reactstrap';
 import defaultLogo from "../../Static/default-logo.png"
 import "./Cards.scss"
+
 function CompanyCard({item}) {
 return (
    <Container className="Card-container">

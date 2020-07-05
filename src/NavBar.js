@@ -1,12 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./NavBar.css";
 import { NavLink } from "react-router-dom";
 import { Navbar, Nav, NavItem } from "reactstrap";
+import UserContext from "./UserContext";
 
 function NavBar({logout}) {
-    const currentUser = localStorage.getItem("token") != null;
+   
+   const {currentUser} = useContext(UserContext)
 
-    const loggedIn = (
+    const loggedIn = () => { 
+        return (
         <>
             <NavItem>
                 <NavLink to="/companies">Companies</NavLink>
@@ -23,14 +26,17 @@ function NavBar({logout}) {
             </NavItem>
         </>
     );
+    }
 
-    const loggedOut = (
+    const loggedOut = () => { 
+        return (
         <>
             <NavItem>
                 <NavLink to="/login">Login</NavLink>
             </NavItem>
         </>
     );
+    }
     return (
         <div>
             <Navbar expand="md">
@@ -38,7 +44,7 @@ function NavBar({logout}) {
                     Jobly
                 </NavLink>
                 <Nav className="ml-auto" navbar>
-                    {currentUser ? loggedIn : loggedOut}
+                    {currentUser ? loggedIn() : loggedOut()}
                 </Nav>
             </Navbar>
         </div>

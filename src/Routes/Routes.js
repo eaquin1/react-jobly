@@ -6,15 +6,16 @@ import Jobs from "../Components/Jobs/Jobs"
 import Login from "../Components/Auth/Login"
 import Profile from "../Components/Profile/Profile"
 import Home from "./Home"
+import PrivateRoute from "./PrivateRoute"
 
-function Routes() {
+function Routes({setToken}) {
     return (
         <Switch>     
-            <Route exact path="/companies"><Companies /></Route>
-            <Route exact path="/companies/:handle"><Company /></Route>
-            <Route exact path="/jobs"><Jobs /></Route>
-            <Route exact path="/login"><Login /></Route>
-            <Route exact path="/profile"><Profile /></Route>
+            <PrivateRoute exact path="/companies"><Companies /></PrivateRoute>
+            <PrivateRoute exact path="/companies/:handle"><Company /></PrivateRoute>
+            <PrivateRoute exact path="/jobs"><Jobs /></PrivateRoute>
+            <Route exact path="/login"><Login setToken={setToken} /></Route>
+            <PrivateRoute exact path="/profile"><Profile /></PrivateRoute>
             <Route exact path="/"><Home /></Route>
             <Redirect to="/" />
         </Switch>

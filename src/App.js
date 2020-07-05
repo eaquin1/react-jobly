@@ -6,8 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 import NavBar from "./NavBar";
 import Routes from "./Routes/Routes"
 import JoblyApi from './Helpers/JoblyApi';
+import UserContext from "./UserContext";
 
-export const TOKEN_STORAGE_ID = "jobly-token"
+export const TOKEN_STORAGE_ID = "token"
 
 function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
@@ -19,9 +20,12 @@ function App() {
     async function getCurrentUser() {
       try {
         let {username} = decode(token)
+        
         let currentUser = await JoblyApi.getUser(username)
+        
         setCurrentUser(currentUser)
       } catch (err) {
+        
         setCurrentUser(null)
       }
       setInfoLoaded(true)
@@ -40,12 +44,17 @@ function App() {
     return (<h1>Loading</h1>)
   }
   return (
-    <div className="App">
+    
       <BrowserRouter>
+      <UserContext.Provider value={{ currentUser, setCurrentUser}}>
+
+      <div className="App">
         <NavBar logout={handleLogOut}/>
-        <Routes />
+        <Routes setToken={setToken}/>
+        </div>
+        </UserContext.Provider>
       </BrowserRouter>
-    </div>
+    
   );
 }
 

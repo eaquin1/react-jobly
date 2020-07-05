@@ -4,7 +4,7 @@ import { Label, Input, Form, Button, FormGroup, Container } from "reactstrap";
 import JoblyApi from "../../Helpers/JoblyApi";
 import { useHistory } from "react-router-dom";
 
-function Login() {
+function Login({setToken}) {
     const history = useHistory();
     const INITIAL_STATE_LOGIN = {
         username: "",
@@ -55,15 +55,14 @@ function Login() {
             };
             endpoint = "login";
         }
-
+        let token;
         try {
-            console.log(endpoint, data);
-            await JoblyApi[endpoint](data);
+            token = await JoblyApi[endpoint](data);
         } catch (errors) {
             return setLoginFormData((l) => ({ ...l, errors }));
         }
 
-        setLoginFormData(INITIAL_STATE_LOGIN);
+        setToken(token)
         history.push("/jobs");
     }
 
