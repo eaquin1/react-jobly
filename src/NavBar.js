@@ -3,7 +3,7 @@ import "./NavBar.css";
 import { NavLink } from "react-router-dom";
 import { Navbar, Nav, NavItem } from "reactstrap";
 
-function NavBar() {
+function NavBar({logout}) {
     const currentUser = localStorage.getItem("token") != null;
 
     const loggedIn = (
@@ -19,7 +19,7 @@ function NavBar() {
             </NavItem>
 
             <NavItem>
-                <NavLink to="/">Logout</NavLink>
+                <NavLink to="/" onClick={logout}>Logout</NavLink>
             </NavItem>
         </>
     );
