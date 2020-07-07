@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Label, Input, Form, Button, FormGroup, Container } from "reactstrap";
 import JoblyApi from "../../Helpers/JoblyApi";
 import { useHistory } from "react-router-dom";
-
+import "./Login.css"
 function Login({setToken}) {
     const history = useHistory();
     const INITIAL_STATE_LOGIN = {
@@ -17,12 +17,14 @@ function Login({setToken}) {
     const [loginFormData, setLoginFormData] = useState(INITIAL_STATE_LOGIN);
     const [activeView, setActiveView] = useState("login");
 
-    function setLoginView() {
+    function setLoginView() {  
         setActiveView("login");
+        
     }
 
     function setRegisterView() {
         setActiveView("register");
+        
     }
 
     const handleChange = (e) => {
@@ -66,6 +68,8 @@ function Login({setToken}) {
         history.push("/jobs");
     }
 
+    let loginActive = activeView === "login";
+
     const registerFields = (
         <>
             <FormGroup>
@@ -103,18 +107,20 @@ function Login({setToken}) {
 
     return (
         <Container>
-            <Button
-                className={`$activeView === "login" ? "active" : ""`}
-                onClick={setLoginView}
+            <div className="btn-group">
+            <button
+              className={`btn btn-secondary ${loginActive ? "active" : ""} `}
+              onClick={setLoginView}
             >
-                Login
-            </Button>
-            <Button
-                className={`$activeView === "register" ? "active" : ""`}
-                onClick={setRegisterView}
+              Login
+            </button>
+            <button
+              className={`btn btn-secondary ${loginActive ? "" : "active"} `}
+              onClick={setRegisterView}
             >
-                Sign Up
-            </Button>
+              Sign up
+            </button>
+            </div>
             <Form onSubmit={handleLogin}>
                 <FormGroup>
                     <Label for="username">Username</Label>

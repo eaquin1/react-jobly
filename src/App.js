@@ -7,6 +7,7 @@ import NavBar from "./NavBar";
 import Routes from "./Routes/Routes"
 import JoblyApi from './Helpers/JoblyApi';
 import UserContext from "./UserContext";
+import {Container} from "reactstrap"
 
 export const TOKEN_STORAGE_ID = "token"
 
@@ -48,10 +49,11 @@ function App() {
       <BrowserRouter>
       <UserContext.Provider value={{ currentUser, setCurrentUser}}>
 
-      <div className="App">
+      
         <NavBar logout={handleLogOut}/>
+        <Container className="App">
         <Routes setToken={setToken}/>
-        </div>
+        </Container>
         </UserContext.Provider>
       </BrowserRouter>
     

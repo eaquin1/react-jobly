@@ -8,10 +8,10 @@ import {
     ButtonToggle,
     Container
 } from "reactstrap";
-import "./Cards.scss"
+import "./Cards.css"
 
 function JobCard({ item, handleApply }) {
-    console.log(handleApply)
+   
     return (
         <Container className="Card-container">
         <Card>
@@ -19,7 +19,7 @@ function JobCard({ item, handleApply }) {
                 <CardTitle className="font-weight-bold">{item.title}</CardTitle>
                 <CardSubtitle>Salary: {item.salary}</CardSubtitle>
                 <CardText>Equity: {item.equity}</CardText>
-                <ButtonToggle onClick={handleApply} className="float-right">{item.state ? 'Applied': 'Apply'}</ButtonToggle>
+                <ButtonToggle onClick={handleApply} className="float-right" disabled={item.state === "applied"}>{item.state ? 'Applied': 'Apply'}</ButtonToggle>
             </CardBody>
         </Card>
         </Container>
@@ -27,3 +27,4 @@ function JobCard({ item, handleApply }) {
 }
 
 export default JobCard;
+

@@ -23,15 +23,15 @@ function Jobs() {
     async function apply(idx) {
         let jobId = jobs[idx].id;
         let message = await JoblyApi.applyToJob(jobId);
-        setJobs((j) => {
+        setJobs((j) => 
             j.map((job) =>
-                job.id === jobId ? { ...job, state: message } : job
-            );
-        });
+                (job.id === jobId ? { ...job, state: message } : job
+            ))
+        );
     }
-    // if (!jobs) {
-    //     return <div>Loading...</div>;
-    // }
+    if (!jobs) {
+        return <div>Loading...</div>;
+    }
 
   let none =  
        (
