@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Companies and Company Details matches snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    Company not found. Please return back to
+    <a
+      href="/companies"
+    >
+       Companies
+    </a>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Testing Companies and Company Details matches snapshot 2`] = `
+<DocumentFragment>
+  <div>
+    Loading...
+  </div>
+</DocumentFragment>
+`;

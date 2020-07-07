@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing the Routes matches snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <h1>
+      Jobly
+    </h1>
+    <img
+      alt="People working"
+      src="jobly.png"
+      style="width: 900px;"
+    />
+    <h2>
+      Welcome Back
+    </h2>
+  </div>
+</DocumentFragment>
+`;

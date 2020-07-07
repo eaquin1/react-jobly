@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing the Company Card matches snapshot for company 1`] = `
+<DocumentFragment>
+  <div
+    class="Card-container container"
+  >
+    <div
+      class="Card card"
+    >
+      <div
+        class="card-body"
+      >
+        <img
+          alt="Rithm School Logo"
+          src="default-logo.png"
+        />
+        <div
+          class="font-weight-bold card-title"
+        >
+          <a
+            href="/companies/rithm"
+          >
+            Rithm School
+          </a>
+        </div>
+        <p
+          class="card-text"
+        >
+          Become an exceptional developer in 16 weeks.
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Testing the JobCard matches snapshot for job 1`] = `
+<DocumentFragment>
+  <div
+    class="Card-container container"
+  >
+    <div
+      class="card"
+    >
+      <div
+        class="card-body"
+      >
+        <div
+          class="font-weight-bold card-title"
+        >
+          Job
+        </div>
+        <div
+          class="card-subtitle"
+        >
+          Salary: 1000000
+        </div>
+        <p
+          class="card-text"
+        >
+          Equity: 0.1
+        </p>
+        <button
+          class="float-right btn btn-secondary"
+        >
+          Apply
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

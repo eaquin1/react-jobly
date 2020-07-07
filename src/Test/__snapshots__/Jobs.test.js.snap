@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot with no jobs 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      style="margin-left: 40px;"
+    >
+      <form
+        class="form-inline"
+      >
+        <input
+          class="form-control"
+          name="search"
+          placeholder="Enter a search term"
+          type="text"
+          value=""
+        />
+        <button
+          class="btn btn-secondary"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+    <div>
+      <div>
+        Job was not found. Please return back to
+        <a
+          href="/jobs"
+        >
+           Jobs 
+        </a>
+      </div>
+       
+    </div>
+  </div>
+</DocumentFragment>
+`;

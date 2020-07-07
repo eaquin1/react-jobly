@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing the Home component matches snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <h1>
+      Jobly
+    </h1>
+    <img
+      alt="People working"
+      src="jobly.png"
+      style="width: 900px;"
+    />
+    <h2>
+      Welcome Back
+    </h2>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Testing the Home component matches snapshot when logged out 1`] = `
+<DocumentFragment>
+  <div>
+    <h1>
+      Jobly
+    </h1>
+    <img
+      alt="People working"
+      src="jobly.png"
+      style="width: 900px;"
+    />
+    <a
+      href="/Login"
+      style="display: block; font-size: 3em;"
+    >
+      Login
+    </a>
+  </div>
+</DocumentFragment>
+`;

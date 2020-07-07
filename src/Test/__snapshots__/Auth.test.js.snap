@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing the AuthForm matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <div
+      class="btn-group"
+    >
+      <button
+        class="btn btn-secondary active "
+      >
+        Login
+      </button>
+      <button
+        class="btn btn-secondary  "
+      >
+        Sign up
+      </button>
+    </div>
+    <form
+      class=""
+    >
+      <div
+        class="form-group"
+      >
+        <label
+          class=""
+          for="username"
+        >
+          Username
+        </label>
+        <input
+          class="form-control"
+          name="username"
+          placeholder="Username"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        class="form-group"
+      >
+        <label
+          class=""
+          for="username"
+        >
+          Password
+        </label>
+        <input
+          class="form-control"
+          name="password"
+          placeholder="Password"
+          type="password"
+          value=""
+        />
+      </div>
+      <button
+        class="btn btn-secondary"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</DocumentFragment>
+`;
