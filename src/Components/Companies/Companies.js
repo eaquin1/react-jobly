@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function Companies() {
     const [companies, setCompanies] = useState([]);
-
+    
     useEffect(() => {
         async function getCompanies() {
             let c = await JoblyApi.getCompanies();

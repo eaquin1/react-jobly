@@ -5,12 +5,13 @@ import {
     CardBody,
     CardTitle,
     CardSubtitle,
-    Button,
+    ButtonToggle,
     Container
 } from "reactstrap";
 import "./Cards.scss"
 
-function JobCard({ item }) {
+function JobCard({ item, handleApply }) {
+    console.log(handleApply)
     return (
         <Container className="Card-container">
         <Card>
@@ -18,7 +19,7 @@ function JobCard({ item }) {
                 <CardTitle className="font-weight-bold">{item.title}</CardTitle>
                 <CardSubtitle>Salary: {item.salary}</CardSubtitle>
                 <CardText>Equity: {item.equity}</CardText>
-                <Button>Apply</Button>
+                <ButtonToggle onClick={handleApply} className="float-right">{item.state ? 'Applied': 'Apply'}</ButtonToggle>
             </CardBody>
         </Card>
         </Container>

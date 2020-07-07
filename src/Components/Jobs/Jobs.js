@@ -20,24 +20,42 @@ function Jobs() {
         setJobs(searchResults);
     }
 
-    if (!jobs) {
-        return <div>Loading...</div>;
+    async function apply(idx) {
+        let jobId = jobs[idx].id;
+        let message = await JoblyApi.applyToJob(jobId);
+        setJobs((j) => {
+            j.map((job) =>
+                job.id === jobId ? { ...job, state: message } : job
+            );
+        });
     }
+    // if (!jobs) {
+    //     return <div>Loading...</div>;
+    // }
 
-    return jobs.length === 0 ? (
+  let none =  
+       (
         <div>
             Job was not found. Please return back to
             <Link to="/jobs" onClick={() => handleSearch()}>
                 {" "}
                 Jobs{" "}
             </Link>
-        </div>
-    ) : (
+        </div>)
+   
+   let found = jobs.map((job, idx) => (
+    <JobCard
+        item={job}
+        key={idx}
+        idx={idx}
+        handleApply={() => apply(idx)}
+    />
+))
+
+    return  (
         <div>
             <Search endpoint="jobs" searchFor={handleSearch} />
-            {jobs.map((job) => (
-                <JobCard item={job} key={job.id} />
-            ))}
+            <div>{jobs.length ? found : none} </div>
         </div>
     );
 }

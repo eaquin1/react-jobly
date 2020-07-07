@@ -7,7 +7,8 @@ import {
 import defaultLogo from "../../Static/default-logo.png"
 import "./Cards.scss"
 
-function CompanyCard({item}) {
+function CompanyCard({item }) {
+  
 return (
    <Container className="Card-container">
        
@@ -18,6 +19,7 @@ return (
           <CardTitle className="font-weight-bold">
               <Link to={`/companies/${item.handle}`} key={item.handle}>{item.name}</Link></CardTitle>
           <CardText>{item.description}</CardText>
+          
         </CardBody>
       </Card>
    </Container>

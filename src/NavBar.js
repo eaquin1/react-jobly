@@ -20,9 +20,8 @@ function NavBar({logout}) {
             <NavItem>
                 <NavLink to="/profile">Profile</NavLink>
             </NavItem>
-
             <NavItem>
-                <NavLink to="/" onClick={logout}>Logout</NavLink>
+                <NavLink to="/" onClick={logout} className="logout">Logout</NavLink>
             </NavItem>
         </>
     );
