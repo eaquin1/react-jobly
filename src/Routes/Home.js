@@ -8,7 +8,7 @@ function Home() {
         <div>
         <h1>Jobly</h1>
         <img src={img} alt="People working" style={{width: "900px"}}></img>
-        {currentUser ? <h2>Welcome Back</h2> : <Link to="Login" style={{display: "block", fontSize: "3em"}}>Login</Link>}
+        {currentUser ? <h2>Welcome Back</h2> : <Link to="Login"  className="btn btn-lg btn-secondary">Login</Link>}
         
         </div>
     )

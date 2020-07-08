@@ -1,152 +1,165 @@
 import React, { useState } from "react";
 
-import { Label, Input, Form, Button, FormGroup, Container } from "reactstrap";
+import {Alert } from "reactstrap";
 import JoblyApi from "../../Helpers/JoblyApi";
 import { useHistory } from "react-router-dom";
 import "./Login.css"
 function Login({setToken}) {
-    
+
     const history = useHistory();
-    const INITIAL_STATE_LOGIN = {
-        username: "",
-        password: "",
-        first_name: "",
-        last_name: "",
-        email: "",
-        errors: [],
-    };
-    const [loginFormData, setLoginFormData] = useState(INITIAL_STATE_LOGIN);
-    const [activeView, setActiveView] = useState("login");
+  const [activeView, setActiveView] = useState("login");
+  const [loginInfo, setLoginInfo] = useState({
+    username: "",
+    password: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    errors: []
+  });
 
-    function setLoginView() {
-        setActiveView("login");
+  function setLoginView() {
+    setActiveView("login");
+  }
+
+  function setSignupView() {
+    setActiveView("signup");
+  }
+
+  async function handleSubmit(evt) {
+    evt.preventDefault();
+    let data;
+    let endpoint;
+
+    if (activeView === "signup") {
+      // these fields aren't req'd---pass undefined, not empty string
+      data = {
+        username: loginInfo.username,
+        password: loginInfo.password,
+        first_name: loginInfo.first_name || undefined,
+        last_name: loginInfo.last_name || undefined,
+        email: loginInfo.email || undefined
+      };
+      endpoint = "register";
+    } else {
+      data = {
+        username: loginInfo.username,
+        password: loginInfo.password
+      };
+      endpoint = "login";
     }
 
-    function setRegisterView() {
-        setActiveView("register");
+    let token;
+
+    try {
+      token = await JoblyApi[endpoint](data);
+    } catch (errors) {
+      return setLoginInfo(l => ({ ...l, errors }));
     }
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setLoginFormData((formData) => ({
-            ...formData,
-            [name]: value,
-        }));
-    };
+    setToken(token);
+    history.push("/jobs");
+  }
 
-    async function handleLogin(evt) {
-        evt.preventDefault();
-        let data;
-        let endpoint;
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setLoginInfo(l => ({ ...l, [name]: value }));
+  }
 
-        if (activeView === "register") {
-            //unrequired fields can be undefined
-            data = {
-                username: loginFormData.username,
-                password: loginFormData.password,
-                first_name: loginFormData.first_name || undefined,
-                last_name: loginFormData.last_name || undefined,
-                email: loginFormData.email || undefined,
-            };
-            endpoint = "register";
-        } else {
-            data = {
-                username: loginFormData.username,
-                password: loginFormData.password,
-            };
-            endpoint = "login";
-        }
-        let token;
-        try {
-            token = await JoblyApi[endpoint](data);
-        } catch (errors) {
-            return setLoginFormData((l) => ({ ...l, errors }));
-        }
+  let loginActive = activeView === "login";
 
-        setToken(token)
-        history.push("/jobs");
-    }
+  const signupFields = (
+    <div>
+      <div className="form-group">
+        <label>First name</label>
+        <input
+          name="first_name"
+          className="form-control"
+          value={loginInfo.first_name}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label>Last name</label>
+        <input
+          name="last_name"
+          className="form-control"
+          value={loginInfo.last_name}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          className="form-control"
+          value={loginInfo.email}
+          onChange={handleChange}
+        />
+      </div>
+    </div>
+  );
 
-    let loginActive = activeView === "login"
-
-    const registerFields = (
-        <>
-            <FormGroup>
-                <Label for="first_name">First Name</Label>
-                <Input
-                    type="text"
-                    name="first_name"
-                    placeholder="First Name"
-                    value={loginFormData.first_name}
-                    onChange={handleChange}
-                />
-            </FormGroup>
-            <FormGroup>
-                <Label for="last_name">Last Name</Label>
-                <Input
-                    type="text"
-                    name="last_name"
-                    placeholder="Last Name"
-                    value={loginFormData.last_name}
-                    onChange={handleChange}
-                />
-            </FormGroup>
-            <FormGroup>
-                <Label for="email">Email</Label>
-                <Input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={loginFormData.email}
-                    onChange={handleChange}
-                />
-            </FormGroup>
-        </>
-    );
-
-    return (
-        <Container>
-            <div className="btn-group">
+  return (
+    <div className="Login">
+      <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+        <div className="d-flex justify-content-end">
+          <div className="btn-group">
             <button
               className={`btn btn-secondary ${loginActive ? "active" : ""} `}
-            onClick={setLoginView}
+              onClick={setLoginView}
             >
-               Login
-             </button>
+              Login
+            </button>
             <button
-           className={`btn btn-secondary ${loginActive ? "" : "active"} `}
-              onClick={setRegisterView}
-             >
+              className={`btn btn-secondary ${loginActive ? "" : "active"} `}
+              onClick={setSignupView}
+            >
               Sign up
             </button>
-            </div>
-            <Form onSubmit={handleLogin}>
-                <FormGroup>
-                    <Label for="username">Username</Label>
-                    <Input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        value={loginFormData.username}
-                        onChange={handleChange}
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="username">Password</Label>
-                    <Input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={loginFormData.password}
-                        onChange={handleChange}
-                    />
-                </FormGroup>
+          </div>
+        </div>
+        <div className="card">
+          <div className="card-body">
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label>Username</label>
+                <input
+                  name="username"
+                  className="form-control"
+                  value={loginInfo.username}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  value={loginInfo.password}
+                  onChange={handleChange}
+                />
+              </div>
+              {loginActive ? "" : signupFields}
+              {loginInfo.errors.length ? (
+                <Alert color="danger" > {loginInfo.errors} </Alert>
+              ) : null}
 
-                {activeView === "register" ? registerFields : ""}
-                <Button>Submit</Button>
-            </Form>
-        </Container>
-    );
+              <button
+                type="submit"
+                className="btn btn-secondary float-right"
+                onSubmit={handleSubmit}
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+    
 }
 
 export default Login;
