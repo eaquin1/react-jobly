@@ -6,7 +6,7 @@ class JoblyApi {
   static async request(endpoint, params = {}, verb = "get") {
 
     let _token = localStorage.getItem(TOKEN_STORAGE_ID);
-
+    console.log("BASE_URL", `${BASE_URL}/${endpoint}`)
     console.debug("API Call:", endpoint, params, verb);
 
     let q;
@@ -57,6 +57,7 @@ class JoblyApi {
     }
 
     static async login(data) {
+      
         let res = await this.request(`login`, data, "post");
      
         return res.token;
