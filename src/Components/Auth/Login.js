@@ -5,6 +5,7 @@ import JoblyApi from "../../Helpers/JoblyApi";
 import { useHistory } from "react-router-dom";
 import "./Login.css"
 function Login({setToken}) {
+    
     const history = useHistory();
     const INITIAL_STATE_LOGIN = {
         username: "",
@@ -17,14 +18,12 @@ function Login({setToken}) {
     const [loginFormData, setLoginFormData] = useState(INITIAL_STATE_LOGIN);
     const [activeView, setActiveView] = useState("login");
 
-    function setLoginView() {  
+    function setLoginView() {
         setActiveView("login");
-        
     }
 
     function setRegisterView() {
         setActiveView("register");
-        
     }
 
     const handleChange = (e) => {
@@ -68,7 +67,7 @@ function Login({setToken}) {
         history.push("/jobs");
     }
 
-    let loginActive = activeView === "login";
+    let loginActive = activeView === "login"
 
     const registerFields = (
         <>
@@ -110,14 +109,14 @@ function Login({setToken}) {
             <div className="btn-group">
             <button
               className={`btn btn-secondary ${loginActive ? "active" : ""} `}
-              onClick={setLoginView}
+            onClick={setLoginView}
             >
-              Login
-            </button>
+               Login
+             </button>
             <button
-              className={`btn btn-secondary ${loginActive ? "" : "active"} `}
+           className={`btn btn-secondary ${loginActive ? "" : "active"} `}
               onClick={setRegisterView}
-            >
+             >
               Sign up
             </button>
             </div>
@@ -151,3 +150,4 @@ function Login({setToken}) {
 }
 
 export default Login;
+
