@@ -6,7 +6,7 @@ class JoblyApi {
   static async request(endpoint, params = {}, verb = "get") {
 
     let _token = localStorage.getItem(TOKEN_STORAGE_ID);
-    console.log("BASE_URL", `${BASE_URL}/${endpoint}`)
+    //console.log("BASE_URL", `${BASE_URL}/${endpoint}`)
     console.debug("API Call:", endpoint, params, verb);
 
     let q;

@@ -30,8 +30,8 @@ exports[`Testing the Home component matches snapshot when logged out 1`] = `
       style="width: 900px;"
     />
     <a
+      class="btn btn-lg btn-secondary"
       href="/Login"
-      style="display: block; font-size: 3em;"
     >
       Login
     </a>
